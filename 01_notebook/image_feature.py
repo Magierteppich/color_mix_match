@@ -8,9 +8,10 @@ import math
 from os.path import isfile, join
 from os import listdir
 import cv2
+import image_preprocessing
 
 
-def image_brightness (path_to_library):
+def image_brightness (img_ready):
     
     file_list = [f for f in listdir(path_to_library) if isfile(join(path_to_library, f))] # read all files in the path_to_library file and put them into a list
     brightness_dict = {"file_path" : [],
