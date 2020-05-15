@@ -10,8 +10,10 @@ from sklearn.cluster import KMeans
 from collections import Counter
 
 from sklearn.preprocessing import StandardScaler
+from imutils import build_montages
 
-
+import matplotlib.pyplot as plt
+import matplotlib.image as mpimg
 # ------------------------------------------------------------------------------------------------------------------------------------------------------------ #
 
 # Image proprocessing: 
@@ -218,7 +220,7 @@ def KMean_cluster (valid_path, scaled_feature_list, feature_list):
         number_of_clusters = 20
     
     # KMeans model 
-    model = KMeans(n_clusters = number_of_clusters, n_init = 10, init = "random")
+    model = KMeans(n_clusters = number_of_clusters, n_init = 30, init = "random")
     clusters = model.fit(scaled_feature_list)
     KMean_cluster = clusters.predict(scaled_feature_list)
     
@@ -248,7 +250,7 @@ def KMean_cluster (valid_path, scaled_feature_list, feature_list):
 
 # Showing results: 
 
-def show_result_dict_path (path_to_library, height = 220, width = 220):
+def show_result_dict_path(path_to_library, height = 220, width = 220):
 
     valid_path, features, feature_list = img_get_feature(path_to_library, height = height, width = width, k=4)
     scaled_feature_list = scale_feature(feature_list)
@@ -256,14 +258,4 @@ def show_result_dict_path (path_to_library, height = 220, width = 220):
 
     return result_dict 
     
-
-def img_resize_plot(img, height = 220, width = 220): # it takes a image (as array) and resize it. 
-    
-    dim = (width, height)
-    list_resize = []
-    
-    img_res = cv2.resize(img, dim, interpolation = cv2.INTER_LINEAR)
-    
-    return img_res
-
 
