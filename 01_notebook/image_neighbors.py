@@ -198,18 +198,9 @@ def img_get_feature(path_to_library, height = 220, width = 220, k=4): # returns 
     return valid_path, features, feature_list 
 
 # ------------------------------------------------------------------------------------------------------------------------------------------------------------ #
-
-# scaling the features
-
-def scale_feature(feature_list):
-    
-    scaler = StandardScaler()
-    scaled_fit = scaler.fit(feature_list)
-    scaled_feature_list = scaled_fit.transform(feature_list)
-    
-    return scaled_feature_list #2d array of scaled features. The order of the value is the same as valid_path and features (from the img_get_feature fucntion)
-    
 # ------------------------------------------------------------------------------------------------------------------------------------------------------------ #
+# ------------------------------------------------------------------------------------------------------------------------------------------------------------ #
+# This section is specific to knn_model: 
 
 # defining the target image 
 
@@ -221,15 +212,72 @@ def find_target_image(valid_path, target_image = "target_01"):
         
     return target_index
 
+
+# calculate MSE and SSIM as features based on the target_image selected
+
+def color_to_gray(img_ready):
+    
+    img_ready_gray = []
+    for img in img_ready: 
+        gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
+        img_ready_gray.append(gray)
+
+    return img_ready_gray
+
+def get_img_mse(img_ready_gray, target_index):
+    
+    target_img_g = img_ready_gray[target_index]
+    list_img_mse = []
+
+    for img_g in img_ready_gray: 
+
+        err = np.sum(((target_img_g.astype("float") - img_g.astype("float")) ** 2))
+        err /= float(target_img_g.shape[0] * img_g.shape[1])
+        list_img_mse.append([err]) 
+
+    return list_img_mse
+
+def get_img_ssim(img_ready_gray, target_index):
+    
+    target_img_g = img_ready_gray[target_index]
+    list_img_ssim = []
+    for img_g in img_ready_gray: 
+        similariy = ssim(target_img_g, img_g)
+        list_img_ssim.append([similariy])
+        
+    return list_img_ssim
+
+# add the features to the features_list
+
+def get_feature_list_knn(valid_path, features, feature_list, list_img_mse,list_img_ssim):
+    feature_list_knn = []
+    features_knn = features + ["MSE"] + ["SSIM"]
+    for i in range(len(valid_path)):
+        temp = feature_list[i]+ list_img_mse[i] + list_img_ssim[i]
+        feature_list_knn.append(temp)
+    
+    return feature_list_knn, features_knn
+
+# scaling the features
+
+def scale_feature(feature_list_knn):
+    
+    scaler = StandardScaler()
+    scaled_fit = scaler.fit(feature_list_knn)
+    scaled_feature_list_knn = scaled_fit.transform(feature_list_knn)
+    
+    return scaled_feature_list_knn #2d array of scaled features. The order of the value is the same as valid_path and features (from the img_get_feature fucntion)
+
+
 # find the x neighbors matching to target image
 
-def find_neighbors (valid_path, features, scaled_feature_list, number_of_neighbors, target_index):
+def find_neighbors(valid_path, features_knn, scaled_feature_list_knn, number_of_neighbors, target_index):
     
     model_knn = NearestNeighbors(metric= "cosine",
                                  algorithm = "brute",
                                  n_jobs = -1)
-    model_knn.fit(scaled_feature_list)
-    target = np.array(scaled_feature_list[target_index])
+    model_knn.fit(scaled_feature_list_knn)
+    target = np.array(scaled_feature_list_knn[target_index])
     score, neighbor_index = model_knn.kneighbors(target.reshape(1, -1), n_neighbors=number_of_neighbors+1)
     neighbor_index = list(neighbor_index[0])
     
@@ -272,10 +320,16 @@ def show_result_in_plot_knn(list_of_neighbors):
 
 # combining everything together
 
-def mix_n_match_neighbors(path_to_library, target_image, number_of_neighbors):
+def mix_n_match_neighbors(path_to_library, target_image, number_of_neighbors, height = 220, width = 220):
 
+    preprocessed_img = img_ready(path_to_library, height, width)
+    img_ready_gray = color_to_gray(preprocessed_img)
     valid_path, features, feature_list = img_get_feature(path_to_library = path_to_library)
-    scaled_feature_list = scale_feature(feature_list)
     target_index = find_target_image(valid_path, target_image = target_image)
-    list_of_neighbors = find_neighbors(valid_path, features, scaled_feature_list, number_of_neighbors, target_index)
+    list_img_mse = get_img_mse(img_ready_gray, target_index)
+    list_img_ssim = get_img_mse(img_ready_gray, target_index)
+    feature_knn, features_knn = get_feature_list_knn(valid_path, features, feature_list, list_img_mse, list_img_ssim)
+    scaled_feature_list_knn = scale_feature(feature_knn)
+    target_index = find_target_image(valid_path, target_image = target_image)
+    list_of_neighbors = find_neighbors(valid_path, features_knn, scaled_feature_list_knn, number_of_neighbors, target_index)
     show_result_in_plot_knn(list_of_neighbors)
