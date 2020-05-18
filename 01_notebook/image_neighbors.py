@@ -6,12 +6,17 @@ import cv2
 import numpy as np
 import os
 import math
-from sklearn.cluster import KMeans
 from collections import Counter
 
 from sklearn.preprocessing import StandardScaler
+from sklearn.neighbors import NearestNeighbors
+from sklearn.cluster import KMeans
 
 
+from imutils import build_montages
+
+import matplotlib.pyplot as plt
+import matplotlib.image as mpimg
 # ------------------------------------------------------------------------------------------------------------------------------------------------------------ #
 
 # Image proprocessing: 
@@ -192,7 +197,85 @@ def img_get_feature(path_to_library, height = 220, width = 220, k=4): # returns 
 
     return valid_path, features, feature_list 
 
+# ------------------------------------------------------------------------------------------------------------------------------------------------------------ #
 
+# scaling the features
+
+def scale_feature(feature_list):
     
+    scaler = StandardScaler()
+    scaled_fit = scaler.fit(feature_list)
+    scaled_feature_list = scaled_fit.transform(feature_list)
+    
+    return scaled_feature_list #2d array of scaled features. The order of the value is the same as valid_path and features (from the img_get_feature fucntion)
+    
+# ------------------------------------------------------------------------------------------------------------------------------------------------------------ #
 
+# defining the target image 
 
+def find_target_image(valid_path, target_image = "target_01"):
+    target_index = 0
+    for path in valid_path: 
+        if (target_image in path[0])==True:
+            target_index = (valid_path.index(path))
+        
+    return target_index
+
+# find the x neighbors matching to target image
+
+def find_neighbors (valid_path, features, scaled_feature_list, number_of_neighbors, target_index):
+    
+    model_knn = NearestNeighbors(metric= "cosine",
+                                 algorithm = "brute",
+                                 n_jobs = -1)
+    model_knn.fit(scaled_feature_list)
+    target = np.array(scaled_feature_list[target_index])
+    score, neighbor_index = model_knn.kneighbors(target.reshape(1, -1), n_neighbors=number_of_neighbors+1)
+    neighbor_index = list(neighbor_index[0])
+    
+    list_of_neighbors = []
+    for neighbor in neighbor_index:
+        list_of_neighbors.append(valid_path[neighbor])
+        
+    return list_of_neighbors
+   
+# ------------------------------------------------------------------------------------------------------------------------------------------------------------ #
+
+# show results
+
+def img_resize_plot(img, height = 220, width = 220): # it takes a image (as array) and resize it. 
+    
+    dim = (width, height)
+    list_resize = []
+    
+    img_res = cv2.resize(img, dim, interpolation = cv2.INTER_LINEAR)
+    
+    return img_res
+
+def show_result_in_plot_knn(list_of_neighbors):
+
+        images_plot = []
+        
+        for path in list_of_neighbors:
+            img = mpimg.imread(path[0])
+            img_res = img_resize_plot(img)
+            images_plot.append(img_res)
+
+            montages = build_montages(images_plot, (300,300), (6,3))
+    
+        for montage in montages:
+            plt.figure(figsize=(10,10))
+            imgplot = plt.imshow(montage)
+            plt.show() 
+
+# ------------------------------------------------------------------------------------------------------------------------------------------------------------ #
+
+# combining everything together
+
+def mix_n_match_neighbors(path_to_library, target_image, number_of_neighbors):
+
+    valid_path, features, feature_list = img_get_feature(path_to_library = path_to_library)
+    scaled_feature_list = scale_feature(feature_list)
+    target_index = find_target_image(valid_path, target_image = target_image)
+    list_of_neighbors = find_neighbors(valid_path, features, scaled_feature_list, number_of_neighbors, target_index)
+    show_result_in_plot_knn(list_of_neighbors)
