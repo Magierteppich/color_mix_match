@@ -10,7 +10,7 @@ from sklearn.cluster import KMeans
 from collections import Counter
 
 from sklearn.preprocessing import StandardScaler
-
+import colour
 
 # ------------------------------------------------------------------------------------------------------------------------------------------------------------ #
 
@@ -171,6 +171,42 @@ def img_dominant_color(img_ready, k=4):
             
     return img_dominant_color #result is a list of sub-lists. Each sub-list contains 4 elements: file_path, r,g,b
 
+def average_RGB(img_ready):
+    
+    list_average_RGB = []
+    for img in img_ready: 
+        (B, G, R) = cv2.split(img.astype("float"))    
+        temp = [np.average(R), np.average(G), np.average(B)]
+        list_average_RGB.append(temp)
+        
+    return list_average_RGB
+
+def convert_RGB_to_kelvin (list_average_RGB):
+    
+    list_kelvin = []
+    
+    for image in list_average_RGB: 
+        
+        #Assuming sRGB encoded colour values.
+        RGB = np.array(image)
+
+        # Conversion to tristimulus values.
+        XYZ = colour.sRGB_to_XYZ(RGB / 255)
+
+        # Conversion to chromaticity coordinates.
+        xy = colour.XYZ_to_xy(XYZ)
+
+        # Conversion to correlated colour temperature in K.
+        CCT = colour.xy_to_CCT(xy, 'hernandez1999')
+        
+        list_kelvin.append([CCT])
+    
+    return list_kelvin   #img_kelvin is a list of calculated Kelvin value (based on average RGB and hernandez1999 method) for each image in img_ready
+
+
+# ------------------------------------------------------------------------------------------------------------------------------------------------------------ #
+
+# putting all features into 1 feature list. 
 
 def img_get_feature(path_to_library, height = 220, width = 220, k=4): # returns a list of dictionary containing ALL image features.
 
@@ -182,11 +218,13 @@ def img_get_feature(path_to_library, height = 220, width = 220, k=4): # returns 
     list_colorfulness = img_colorfulness(img_ready = preprocessed_img)
     list_contrast = img_contrast(img_ready = preprocessed_img)
     list_dominant_color = img_dominant_color(img_ready = preprocessed_img, k=k)
+    list_average_RGB = average_RGB(img_ready = preprocessed_img)
+    list_kelvin = convert_RGB_to_kelvin (list_average_RGB)
 
     feature_list = []
-    features = ["H", "S", "V", "colorfulness", "contrast", "R", "G", "B"]
+    features = ["H", "S", "V", "colorfulness", "contrast", "R", "G", "B", "kelvin"]
     for i in range(len(valid_path)):
-        temp = list_hsv[i] + list_colorfulness[i] + list_contrast[i] + list_dominant_color[i]
+        temp = list_hsv[i] + list_colorfulness[i] + list_contrast[i] + list_dominant_color[i] + list_kelvin[i]
         feature_list.append(temp)
 
 

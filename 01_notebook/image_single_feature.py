@@ -105,7 +105,35 @@ def img_dominant_color(img_ready, k=4):
     return img_dominant_color #result is a list of sub-lists. Each sub-list contains 4 elements: file_path, r,g,b
 
 
+def average_RGB(img_ready):
+    
+    average_RGB = []
+    for img in img_ready: 
+        (B, G, R) = cv2.split(img.astype("float"))    
+        temp = [np.average(R), np.average(G), np.average(B)]
+        average_RGB.append(temp)
+        
+    return average_RGB
 
+def convert_RGB_to_kelvin (average_RGB):
+    
+    img_kelvin = []
+    
+    for image in average_RGB: 
+        
+        #Assuming sRGB encoded colour values.
+        RGB = np.array(image)
 
+        # Conversion to tristimulus values.
+        XYZ = colour.sRGB_to_XYZ(RGB / 255)
 
+        # Conversion to chromaticity coordinates.
+        xy = colour.XYZ_to_xy(XYZ)
+
+        # Conversion to correlated colour temperature in K.
+        CCT = colour.xy_to_CCT(xy, 'hernandez1999')
+        
+        img_kelvin.append(CCT)
+    
+    return img_kelvin   #img_kelvin is a list of calculated Kelvin value (based on average RGB and hernandez1999 method)
 
