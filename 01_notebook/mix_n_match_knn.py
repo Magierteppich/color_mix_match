@@ -2,13 +2,12 @@ from img_preprocess import *
 from img_feature import *
 from img_knn import *
 from img_show_knn import *
-from img_result_folder import *
 
 import os
 import re
 from shutil import copyfile
 
-def mix_n_match_neighbors(path_to_library, target_image, number_of_neighbors, folder_name, height = 220, width = 220):
+def mix_n_match_neighbors(path_to_library, target_image, number_of_neighbors, height = 220, width = 220):
 
     preprocessed_img, valid_path = img_ready(path_to_library, height, width)
     img_ready_gray = color_to_gray(preprocessed_img)

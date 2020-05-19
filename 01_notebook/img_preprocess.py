@@ -60,15 +60,15 @@ def img_ready(path_to_library, height = 220, width = 220):
 	img_list, valid_path = img_read(file_list)
 	list_resize = img_resize(img_list, height = height, width = width)
 	list_denoise = img_denoise(list_resize) 
-	img_ready = list_denoise.copy()
+	image_ready = list_denoise.copy()
 
-	return img_ready, valid_path
+	return image_ready
 
 
-def color_to_gray(img_ready):
+def color_to_gray(image_ready):
     
     img_ready_gray = []
-    for img in img_ready: 
+    for img in image_ready: 
         gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
         img_ready_gray.append(gray)
 
