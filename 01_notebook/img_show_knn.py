@@ -41,3 +41,10 @@ def show_result_in_plot_knn(list_of_neighbors):
             imgplot = plt.imshow(montage)
             plt.show() 
 
+def print_results(list_of_neighbors, target_index, number_of_neighbors, valid_path):
+        target = valid_path[target_index]
+        print(f"Fot the image chosen {target[0]}, the following {number_of_neighbors} images may fit well:")
+        print("-----------------------------------------------------")
+        list_of_neighbors_print = list_of_neighbors[1:]
+        for path in list_of_neighbors_print:
+            print(f"{path[0]}")

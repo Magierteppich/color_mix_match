@@ -15,13 +15,18 @@ from img_feature import *
 
 # defining the target image 
 
-def find_target_image(valid_path, target_image = "target_01"):
-    target_index = 0
+def find_target_image(valid_path, target_image):
+    target_index = None
+
     for path in valid_path: 
         if (target_image in path[0])==True:
             target_index = (valid_path.index(path))
-        
-    return target_index
+    
+    if target_index is None:
+        print(f"The image {target_image} given cannot be found. Please try again.")
+        return None 
+    else:
+        return target_index
 
 
 # calculate MSE and SSIM as features based on the target_image selected
