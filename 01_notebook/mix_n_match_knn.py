@@ -2,15 +2,20 @@ from img_preprocess import *
 from img_feature import *
 from img_knn import *
 from img_show_knn import *
+from img_result_folder import *
 
-def mix_n_match_neighbors(path_to_library, target_image, number_of_neighbors, height = 220, width = 220):
+import os
+import re
+from shutil import copyfile
+
+def mix_n_match_neighbors(path_to_library, target_image, number_of_neighbors, folder_name, height = 220, width = 220):
 
     preprocessed_img, valid_path = img_ready(path_to_library, height, width)
     img_ready_gray = color_to_gray(preprocessed_img)
 
     features, feature_list = img_get_feature(preprocessed_img)
     target_index = find_target_image(valid_path, target_image)
-    
+
     if target_index is None: 
         return 
     else:
@@ -21,3 +26,4 @@ def mix_n_match_neighbors(path_to_library, target_image, number_of_neighbors, he
         list_of_neighbors = find_neighbors(valid_path, features_knn, scaled_feature_list_knn, number_of_neighbors, target_index)
         show_result_in_plot_knn(list_of_neighbors)
         print_results(list_of_neighbors, target_index, number_of_neighbors, valid_path)
+
