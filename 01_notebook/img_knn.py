@@ -1,24 +1,16 @@
 
-from os.path import isfile, join
-from os import listdir
 import cv2
-
 import numpy as np
 import os
 import math
-from collections import Counter
+
 
 from sklearn.preprocessing import StandardScaler
 from sklearn.neighbors import NearestNeighbors
 from sklearn.cluster import KMeans
 
-
-from imutils import build_montages
-
-import matplotlib.pyplot as plt
-import matplotlib.image as mpimg
-
 from img_preprocess import *
+from img_feature import *
 # ------------------------------------------------------------------------------------------------------------------------------------------------------------ #
 
 # defining the target image 

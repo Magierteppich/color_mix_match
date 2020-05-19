@@ -3,7 +3,6 @@ from img_feature import *
 from img_knn import *
 from img_show_knn import *
 
-
 def mix_n_match_neighbors(path_to_library, target_image, number_of_neighbors, height = 220, width = 220):
 
     preprocessed_img, valid_path = img_ready(path_to_library, height, width)

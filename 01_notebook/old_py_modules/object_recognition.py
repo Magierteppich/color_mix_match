@@ -1,3 +1,6 @@
+# the module loads the trained model to predict input images 
+# the modell is trained on 10 categories 
+
 from os.path import isfile, join
 from os import listdir
 import pandas as pd

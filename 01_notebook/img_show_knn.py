@@ -1,22 +1,17 @@
 
-from os.path import isfile, join
-from os import listdir
 import cv2
 
 import numpy as np
 import os
 import math
-from collections import Counter
-
-from sklearn.preprocessing import StandardScaler
-from sklearn.neighbors import NearestNeighbors
-from sklearn.cluster import KMeans
-
 
 from imutils import build_montages
-
 import matplotlib.pyplot as plt
 import matplotlib.image as mpimg
+
+from img_preprocess import *
+from img_feature import *
+from img_knn import * 
 # ------------------------------------------------------------------------------------------------------------------------------------------------------------ #
    
 # show results
@@ -39,7 +34,7 @@ def show_result_in_plot_knn(list_of_neighbors):
             img_res = img_resize_plot(img)
             images_plot.append(img_res)
 
-            montages = build_montages(images_plot, (300,300), (6,3))
+            montages = build_montages(images_plot, (300,300), (5,3))
     
         for montage in montages:
             plt.figure(figsize=(10,10))

@@ -1,11 +1,7 @@
 
 import numpy as np
-import os
 import math
-from os.path import isfile, join
-from os import listdir
 import cv2
-import image_preprocessing as ip
 from sklearn.cluster import KMeans
 from collections import Counter
 import colour
@@ -143,7 +139,7 @@ def convert_RGB_to_kelvin (average_RGB):
 
 # putting all features into 1 feature list. 
 
-def img_get_feature(path_to_library, height = 220, width = 220, k=4): # returns a list of dictionary containing ALL image features.
+def img_get_feature(path_to_library, height = 220, width = 220): # returns a list of dictionary containing ALL image features.
 
     # file_list = get_file_path(path_to_library)
     # preprocessed_img = img_ready(path_to_library, height = height, width = width)
@@ -154,7 +150,7 @@ def img_get_feature(path_to_library, height = 220, width = 220, k=4): # returns 
     list_hsv = img_hsv(img_ready = preprocessed_img)
     list_colorfulness = img_colorfulness(img_ready = preprocessed_img)
     list_contrast = img_contrast(img_ready = preprocessed_img)
-    list_dominant_color = img_dominant_color(img_ready = preprocessed_img, k=k)
+    list_dominant_color = img_dominant_color(img_ready = preprocessed_img, k=4)
     list_average_RGB = average_RGB(img_ready = preprocessed_img)
     list_kelvin = convert_RGB_to_kelvin(list_average_RGB)
 

@@ -1,20 +1,11 @@
 
-from os.path import isfile, join
-from os import listdir
 import cv2
-
 import numpy as np
-import os
 import math
-from sklearn.cluster import KMeans
-from collections import Counter
 
-from sklearn.preprocessing import StandardScaler
 from imutils import build_montages
-
 import matplotlib.pyplot as plt
 import matplotlib.image as mpimg
-import re
 
 from img_preprocess import *
 from img_feature import *
