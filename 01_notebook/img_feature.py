@@ -8,9 +8,11 @@ import cv2
 import image_preprocessing as ip
 from sklearn.cluster import KMeans
 from collections import Counter
+import colour
+from img_preprocess import *
 
-# Here, only the single feature extraction functions are stored. 
-# img_read is a list of images (as np.array)
+# Here, only feature extraction functions are stored. 
+# img_read is a list of images (as np.array) - from img_preprocess import * needed 
 
  
 def img_hsv(img_ready):
@@ -137,3 +139,30 @@ def convert_RGB_to_kelvin (average_RGB):
     
     return img_kelvin   #img_kelvin is a list of calculated Kelvin value (based on average RGB and hernandez1999 method) for each image in img_ready
 
+# ------------------------------------------------------------------------------------------------------------------------------------------------------------ #
+
+# putting all features into 1 feature list. 
+
+def img_get_feature(path_to_library, height = 220, width = 220, k=4): # returns a list of dictionary containing ALL image features.
+
+    # file_list = get_file_path(path_to_library)
+    # preprocessed_img = img_ready(path_to_library, height = height, width = width)
+    # img_list, valid_path = img_read(file_list)
+    
+    preprocessed_img, valid_path = img_ready(path_to_library)
+
+    list_hsv = img_hsv(img_ready = preprocessed_img)
+    list_colorfulness = img_colorfulness(img_ready = preprocessed_img)
+    list_contrast = img_contrast(img_ready = preprocessed_img)
+    list_dominant_color = img_dominant_color(img_ready = preprocessed_img, k=k)
+    list_average_RGB = average_RGB(img_ready = preprocessed_img)
+    list_kelvin = convert_RGB_to_kelvin(list_average_RGB)
+
+    feature_list = []
+    features = ["H", "S", "V", "colorfulness", "contrast", "R", "G", "B", "kelvin"]
+    for i in range(len(valid_path)):
+        temp = list_hsv[i] + list_colorfulness[i] + list_contrast[i] + list_dominant_color[i] + list_kelvin[i]
+        feature_list.append(temp)
+
+
+    return valid_path, features, feature_list 
