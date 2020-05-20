@@ -8,7 +8,7 @@ def get_file_path(path_to_library):
 	    
 	file_list = [path_to_library + "/" + f for f in listdir(path_to_library) if isfile(join(path_to_library, f))] 
 	    
-	return file_list
+	return file_list #simple list with file pathes of all files in the directory ["path1", "path2"...]
 
 def img_read(file_list):
     
@@ -29,6 +29,8 @@ def img_read(file_list):
             valid_path.append([file_path])
         
     return img_list, valid_path 
+    # img_list is a list of images. Each image is a 3d np. array
+    # valid_path is a list of list of valid image pathes. [["path_1"], ["path_2"], ["path_3"]...]
 
 	
 	
@@ -41,7 +43,7 @@ def img_resize(img_list, height = 220, width = 220):
         res = cv2.resize(img_list[i], dim, interpolation = cv2.INTER_LINEAR)
         list_resize.append(res)
     
-    return list_resize
+    return list_resize #list of images. Each image is a 3d np.array
 	
 	
 def img_denoise(list_resize):
@@ -51,7 +53,7 @@ def img_denoise(list_resize):
         blur = cv2.GaussianBlur(list_resize[i], (5,5), 0)
         list_denoise.append(blur)
 
-    return list_denoise
+    return list_denoise #list of images. Each image is a 3d np.array
 
 	
 def img_ready(path_to_library, height = 220, width = 220): 
@@ -62,7 +64,7 @@ def img_ready(path_to_library, height = 220, width = 220):
 	list_denoise = img_denoise(list_resize) 
 	image_ready = list_denoise.copy()
 
-	return image_ready
+	return image_ready, valid_path #list of images. Each image is a 3d np.array
 
 
 def color_to_gray(image_ready):

@@ -139,17 +139,17 @@ def convert_RGB_to_kelvin (average_RGB):
 
 # putting all features into 1 feature list. 
 
-def img_get_feature(path_to_library, height = 220, width = 220, k=4): # returns a list of dictionary containing ALL image features.
+def img_get_feature(image_ready, valid_path, height = 220, width = 220, k=4): # returns a list of dictionary containing ALL image features.
     
-    file_list = get_file_path(path_to_library)
-    preprocessed_img = img_ready(path_to_library, height=220, width=200)
-    img_list, valid_path = img_read(file_list)
+    # file_list = get_file_path(path_to_library)
+    # preprocessed_img = img_ready(path_to_library, height=220, width=200)
+    # img_list, valid_path = img_read(file_list)
     
-    list_hsv = img_hsv(image_ready = preprocessed_img)
-    list_colorfulness = img_colorfulness(image_ready = preprocessed_img)
-    list_contrast = img_contrast(image_ready = preprocessed_img)
-    list_dominant_color = img_dominant_color(image_ready = preprocessed_img, k=k)
-    list_average_RGB = average_RGB(image_ready = preprocessed_img)
+    list_hsv = img_hsv(image_ready)
+    list_colorfulness = img_colorfulness(image_ready)
+    list_contrast = img_contrast(image_ready)
+    list_dominant_color = img_dominant_color(image_ready, k=k)
+    list_average_RGB = average_RGB(image_ready)
     list_kelvin = convert_RGB_to_kelvin(list_average_RGB)
 
     feature_list = []
@@ -159,4 +159,4 @@ def img_get_feature(path_to_library, height = 220, width = 220, k=4): # returns 
         feature_list.append(temp)
 
 
-    return valid_path, features, feature_list 
+    return features, feature_list 

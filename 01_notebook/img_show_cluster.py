@@ -28,7 +28,9 @@ def show_result_in_plot(result_dict):
     
     for keys in result_dict.keys():
         result_images_path = result_dict.get(keys)
-        print(f"{keys}")
+        print("-----------------------------------------------")
+        print('\033[1m' + f"{keys}")
+        print("-----------------------------------------------")
 
         images_plot = []
         
@@ -48,7 +50,7 @@ def print_results(result_dict):
     for keys in result_dict.keys():
         result_img_path = result_dict.get(keys)
         print("-----------------------------------------------")
-        print(f"The following images belong to {keys}:")
+        print('\033[1m' + f"The following images belong to {keys}:")
 
         for path in result_img_path:
             print(path)
