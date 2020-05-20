@@ -7,12 +7,12 @@ import os
 import re
 from shutil import copyfile
 
-def mix_n_match_neighbors(path_to_library, target_image, number_of_neighbors, height = 220, width = 220):
+def mix_n_match_knn(path_to_library, target_image, number_of_neighbors, height = 220, width = 220):
 
-    preprocessed_img, valid_path = img_ready(path_to_library, height, width)
-    img_ready_gray = color_to_gray(preprocessed_img)
+    image_ready, valid_path = img_ready(path_to_library, height, width)
+    img_ready_gray = color_to_gray(image_ready)
 
-    features, feature_list = img_get_feature(preprocessed_img)
+    features, feature_list = img_get_feature(image_ready, valid_path)
     target_index = find_target_image(valid_path, target_image)
 
     if target_index is None: 
