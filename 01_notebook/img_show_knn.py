@@ -34,7 +34,7 @@ def show_result_in_plot_knn(list_of_neighbors):
             img_res = img_resize_plot(img)
             images_plot.append(img_res)
 
-            montages = build_montages(images_plot, (300,300), (5,3))
+            montages = build_montages(images_plot, (300,300), (3,2))
     
         for montage in montages:
             plt.figure(figsize=(10,10))

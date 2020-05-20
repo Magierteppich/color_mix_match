@@ -8,6 +8,7 @@ import math
 from sklearn.preprocessing import StandardScaler
 from sklearn.neighbors import NearestNeighbors
 from sklearn.cluster import KMeans
+from skimage.metrics import structural_similarity as ssim
 
 from img_preprocess import *
 from img_feature import *
