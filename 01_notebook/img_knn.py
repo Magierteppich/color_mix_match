@@ -10,8 +10,8 @@ from sklearn.neighbors import NearestNeighbors
 from sklearn.cluster import KMeans
 from skimage.metrics import structural_similarity as ssim
 
-from img_preprocess import *
-from img_feature import *
+# from img_preprocess import *
+# from img_feature import *
 # ------------------------------------------------------------------------------------------------------------------------------------------------------------ #
 
 # defining the target image 
@@ -44,6 +44,7 @@ def get_img_mse(img_ready_gray, target_index):
         err /= float(target_img_g.shape[0] * img_g.shape[1])
         list_img_mse.append([err]) 
 
+    print("Mean Squared Errors have been calculated between the target image and all available images in the set.")
     return list_img_mse
 
 def get_img_ssim(img_ready_gray, target_index):
@@ -54,6 +55,7 @@ def get_img_ssim(img_ready_gray, target_index):
         similariy = ssim(target_img_g, img_g)
         list_img_ssim.append([similariy])
         
+    print("Structural similariy has been identified between the target image and all available images in the set.")
     return list_img_ssim
 
 # add the features to the features_list
@@ -65,6 +67,7 @@ def get_feature_list_knn(valid_path, features, feature_list, list_img_mse,list_i
         temp = feature_list[i]+ list_img_mse[i] + list_img_ssim[i]
         feature_list_knn.append(temp)
     
+    print("The set of image charateristics has been extended.")
     return feature_list_knn, features_knn
 
 # scaling the features
@@ -75,6 +78,7 @@ def scale_feature(feature_list_knn):
     scaled_fit = scaler.fit(feature_list_knn)
     scaled_feature_list_knn = scaled_fit.transform(feature_list_knn)
     
+    print("All charateristics have been normalized.")
     return scaled_feature_list_knn #2d array of scaled features. The order of the value is the same as valid_path and features (from the img_get_feature fucntion)
 
 
@@ -94,6 +98,7 @@ def find_neighbors(valid_path, features_knn, scaled_feature_list_knn, number_of_
     for neighbor in neighbor_index:
         list_of_neighbors.append(valid_path[neighbor])
         
+    print("A list of {number_of_neighbors} neighbors has been found for the target image.")
     return list_of_neighbors
    
 # ------------------------------------------------------------------------------------------------------------------------------------------------------------ #
