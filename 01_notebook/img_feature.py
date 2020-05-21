@@ -70,7 +70,7 @@ def img_contrast(image_ready):
     
     for img in image_ready: 
     
-        img = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
+        img = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)/255
         contrast = img.std()
             
         temp_result = list([contrast])
