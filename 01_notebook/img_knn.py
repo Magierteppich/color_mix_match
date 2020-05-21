@@ -44,6 +44,7 @@ def get_img_mse(img_ready_gray, target_index):
         err /= float(target_img_g.shape[0] * img_g.shape[1])
         list_img_mse.append([err]) 
 
+    print("-----------------------------------------------------------------------------\n")
     print("Mean Squared Errors have been calculated between the target image and all available images in the set.")
     return list_img_mse
 
@@ -55,6 +56,7 @@ def get_img_ssim(img_ready_gray, target_index):
         similariy = ssim(target_img_g, img_g)
         list_img_ssim.append([similariy])
         
+    print("-----------------------------------------------------------------------------\n")
     print("Structural similariy has been identified between the target image and all available images in the set.")
     return list_img_ssim
 
@@ -67,6 +69,7 @@ def get_feature_list_knn(valid_path, features, feature_list, list_img_mse,list_i
         temp = feature_list[i]+ list_img_mse[i] + list_img_ssim[i]
         feature_list_knn.append(temp)
     
+    print("-----------------------------------------------------------------------------\n")
     print("The set of image charateristics has been extended.")
     return feature_list_knn, features_knn
 
@@ -78,6 +81,7 @@ def scale_feature(feature_list_knn):
     scaled_fit = scaler.fit(feature_list_knn)
     scaled_feature_list_knn = scaled_fit.transform(feature_list_knn)
     
+    print("-----------------------------------------------------------------------------\n")
     print("All charateristics have been normalized.")
     return scaled_feature_list_knn #2d array of scaled features. The order of the value is the same as valid_path and features (from the img_get_feature fucntion)
 

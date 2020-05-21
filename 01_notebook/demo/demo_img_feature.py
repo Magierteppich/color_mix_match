@@ -36,6 +36,7 @@ def img_hsv(image_ready):
         hsv_temp = [average_h, average_s, average_v]
         img_hsv.append(hsv_temp)
             
+    print("-----------------------------------------------------------------------------\n")
     print("Hue, saturation and brightness have been determined for the target image.")
     return img_hsv
 
@@ -62,6 +63,7 @@ def img_colorfulness(image_ready):
         temp_result = list([c_metric])
         img_colorfulness.append(temp_result)
     
+    print("-----------------------------------------------------------------------------\n")
     print("The colorfulness index has been calculated.")
     return img_colorfulness #result is a list of sub-lists. Each sub-list contains 2 elements: file_path, colorfulness (the higher the number, the more colorful)
 
@@ -78,6 +80,7 @@ def img_contrast(image_ready):
         temp_result = list([contrast])
         img_contrast.append(temp_result)
 
+    print("-----------------------------------------------------------------------------\n")
     print("The contrast has been calculated.")
     return img_contrast #result is a list of sub-lists. Each sub-list contains 2 elements: file_path, contrast (the higher the number, the higher the contrast
 
@@ -103,6 +106,7 @@ def img_dominant_color(image_ready, k=4):
         temp_result = list(dominant_color)
         img_dominant_color.append(temp_result)
             
+    print("-----------------------------------------------------------------------------\n")
     print("The dominant color has been determined.")
     return img_dominant_color #result is a list of sub-lists. Each sub-list contains 4 elements: file_path, r,g,b
 
@@ -136,6 +140,7 @@ def convert_RGB_to_kelvin (average_RGB):
         CCT = [colour.xy_to_CCT(xy, 'hernandez1999')]
         
         img_kelvin.append(CCT)
+    print("-----------------------------------------------------------------------------\n")
     print("The image temperature has been determined.")
     return img_kelvin   #img_kelvin is a list of calculated Kelvin value (based on average RGB and hernandez1999 method) for each image in img_ready
 
@@ -162,5 +167,7 @@ def img_get_feature(image_ready, valid_path, height = 220, width = 220, k=4): # 
         temp = list_hsv[i] + list_colorfulness[i] + list_contrast[i] + list_dominant_color[i] + list_kelvin[i]
         feature_list.append(temp)
 
+    print("-----------------------------------------------------------------------------\n")
     print("All charateristics have been calculated and stored.")
+    print("-----------------------------------------------------------------------------\n")
     return features, feature_list 

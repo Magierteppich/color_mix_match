@@ -41,8 +41,11 @@ def get_img_mse(img_ready_gray, target_index):
         err = np.sum(((target_img_g.astype("float") - img_g.astype("float")) ** 2))
         err /= float(target_img_g.shape[0] * img_g.shape[1])
         list_img_mse.append([err]) 
-
+    
+    print(f"The comparison between the target image and all images in the set has been completed (MSE).")
+    print("-----------------------------------------------------------------------------\n")
     return list_img_mse
+
 
 def get_img_ssim(img_ready_gray, target_index):
     
@@ -52,8 +55,10 @@ def get_img_ssim(img_ready_gray, target_index):
         similariy = ssim(target_img_g, img_g)
         list_img_ssim.append([similariy])
         
+    print(f"The structural similarity comparison between the target image and all images in the set has been completed (SSIM).")
+    print("-----------------------------------------------------------------------------\n")
     return list_img_ssim
-
+    
 # add the features to the features_list
 
 def get_feature_list_knn(valid_path, features, feature_list, list_img_mse,list_img_ssim):
@@ -65,6 +70,7 @@ def get_feature_list_knn(valid_path, features, feature_list, list_img_mse,list_i
     
     return feature_list_knn, features_knn
 
+
 # scaling the features
 
 def scale_feature(feature_list_knn):
@@ -73,6 +79,8 @@ def scale_feature(feature_list_knn):
     scaled_fit = scaler.fit(feature_list_knn)
     scaled_feature_list_knn = scaled_fit.transform(feature_list_knn)
     
+    print("All values have been scaled.")
+    print("-----------------------------------------------------------------------------\n")
     return scaled_feature_list_knn #2d array of scaled features. The order of the value is the same as valid_path and features (from the img_get_feature fucntion)
 
 

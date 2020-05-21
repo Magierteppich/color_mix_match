@@ -25,14 +25,14 @@ def img_read(file_list):
         img = cv2.imread(file_path) # CV2 reads in BGR! 
     
         if img is None: 
-            print(f"File {file_path} is not readable.")  
+            print(f"File {file_path} is not readable.")
+            print("\n")  
 
         else:
             img_list.append(img)
             valid_path.append([file_path])
         
-    print("\n")
-    print(f"The target image has been read. The path to the target image is {valid_path}")
+    print(f"The target image has been read.")
     print("-----------------------------------------------------------------------------\n")
     return img_list, valid_path 
 
@@ -73,7 +73,6 @@ def img_ready(path_to_library, height = 220, width = 220):
     image_ready = list_denoise.copy()
 
     print(f"The target image has been successfully preprocessed.")
-    print("-----------------------------------------------------------------------------\n")
     return image_ready, valid_path  #list of images. Each image is a 3d np.array
 
 
