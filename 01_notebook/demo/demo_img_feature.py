@@ -36,7 +36,7 @@ def img_hsv(image_ready):
         hsv_temp = [average_h, average_s, average_v]
         img_hsv.append(hsv_temp)
             
-    print("-----------------------------------------------------------------------------\n")
+    
     print("Hue, saturation and brightness have been determined for the target image.")
     return img_hsv
 

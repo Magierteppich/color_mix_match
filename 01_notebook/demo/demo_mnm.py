@@ -9,10 +9,15 @@ from demo_img_knn import get_feature_list_knn
 from demo_img_knn import scale_feature
 from demo_img_knn import find_neighbors
 from demo_img_show_knn import *
+import pyfiglet
+from PIL import Image
+Image.MAX_IMAGE_PIXELS = None
 
 
 def demo_mix_n_match(file_path, target_image_name, pickle_file_name, number_of_neighbors):
 
+    ascii_banner = pyfiglet.figlet_format("Welcome to color mix and match!")
+    print(ascii_banner)
     print("LOAD IMAGE DATABASE")
     print("-----------------------------------------------------\n")
     image_ready, valid_path, features, feature_list = load_demo(pickle_file_name)
@@ -20,6 +25,9 @@ def demo_mix_n_match(file_path, target_image_name, pickle_file_name, number_of_n
     print("PREPROCESS TARGET IMAGE")
     print("-----------------------------------------------------\n")
     target_image, target_image_path = img_ready(file_path)
+    print("\n")
+    print("CHARACTERISTICS CALCULATION")
+    print("-----------------------------------------------------\n")
     target_features, target_feature_list = img_get_feature(target_image, target_image_path)
     all_in_feature_list = target_feature_list + feature_list
     all_in_valid_path = target_image_path + valid_path
