@@ -59,8 +59,6 @@ def img_denoise(list_resize):
         blur = cv2.GaussianBlur(list_resize[i], (5,5), 0)
         list_denoise.append(blur)
 
-    print(f"Noises have been removed from the target image.")
-    print("-----------------------------------------------------------------------------\n")
     return list_denoise #list of images. Each image is a 3d np.array
 
 	
