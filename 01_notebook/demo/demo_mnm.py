@@ -46,6 +46,8 @@ def demo_mix_n_match(file_path, target_image_name, pickle_file_name, number_of_n
         feature_list_knn, features_knn = get_feature_list_knn(all_in_valid_path, features, all_in_feature_list, list_img_mse, list_img_ssim)
         scaled_feature_list_knn = scale_feature(feature_list_knn)
         list_of_neighbors = find_neighbors(all_in_valid_path, features_knn, scaled_feature_list_knn, number_of_neighbors, target_index)
+        print("RESULTS")
+        print("-----------------------------------------------------\n")
         show_target_image(list_of_neighbors)
         print_results(list_of_neighbors, target_index, number_of_neighbors, valid_path)
         show_result_in_plot_knn(list_of_neighbors)
