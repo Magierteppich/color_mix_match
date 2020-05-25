@@ -46,6 +46,8 @@ dominant color only"
 3. image_cluster: img_cluster.py
 4. img_show_cluster: img_show_cluser.py
 5. final module: mix_n_match_cluster.py
+6. image_cluster_demo --> workbook to run the final module 
+
 
 ### 02.Image knn
 
@@ -67,6 +69,9 @@ A folder with all images to select from and a separate folder with 1 target imag
 7. **Run KNN** on the result of 6: 02. image knn/demo_img_knn.py
 8. **Show the results**: 01_notebook/02. image knn/demo_img_show_knn.py
 9. final modlue:02. image knn/demo_mix_n_match_knn.py
+10. Mix_n_Match demo --> workbook used to run the final module
+11. presentation_pickle_demo_knn --> workbook used to store the image features into a pickle file
+12. Build_demo --> 
 
 ### final presentation
 https://docs.google.com/presentation/d/17q32e9GGdifiA6ztwDIRSkFN-02ZPsv_WfFzQ1xaHJA/edit?usp=sharing
