@@ -31,12 +31,15 @@ Sort images based on images features, e.g. dominant color, contrast, structural 
 
 ### File structure
 
-- Image cluster
-- Image knn - based on target image
-- Notebooks
-- "dominant color only"
+00. data - containing all test images used
+01. mage cluster - module used to cluster a set of images
+02. Image knn - based on target image - module used to make recommendations based on target image
+03. Notebooks - notebooks used to build and test the modules
+04. object recognition - using tensorflow to recognize objects on images / not implemented in the final project
+05. dominant color only - module used to return 3 dominant colors per image. 
+dominant color only"
 
-### Image cluster
+### 01. Image cluster
 
 1. image_preprocess: img_preprocess.py
 2. image_feature: img_feature.py
@@ -44,13 +47,13 @@ Sort images based on images features, e.g. dominant color, contrast, structural 
 4. img_show_cluster: img_show_cluser.py
 5. final module: mix_n_match_cluster.py
 
-### Image knn
+### 02.Image knn
 
 To use the module, inputs needed are:
 A folder with all images to select from and a separate folder with 1 target image. 
 
 1. To generate the *image database* to make recommendations from, run thru the first 2 steps of image cluster.
-2. **Save** the key variables *resulting features* from the first 2 steps into a **pickle file**.
+2. **Save** the key variables *resulting features* from the first 2 steps into a **pickle file**: 02. image knn/store_demo.py
 3. **Load** the pickle file: 02. image knn/load_demo.py
 4. **target image preprocess**: 02. image knn/demo_img_preprocess.py 
 
@@ -64,3 +67,16 @@ A folder with all images to select from and a separate folder with 1 target imag
 7. **Run KNN** on the result of 6: 02. image knn/demo_img_knn.py
 8. **Show the results**: 01_notebook/02. image knn/demo_img_show_knn.py
 9. final modlue:02. image knn/demo_mix_n_match_knn.py
+
+### final presentation
+https://docs.google.com/presentation/d/17q32e9GGdifiA6ztwDIRSkFN-02ZPsv_WfFzQ1xaHJA/edit?usp=sharing
+
+
+### sources used:
+https://www.pyimagesearch.com/2017/06/05/computing-image-colorfulness-with-opencv-and-python/
+https://www.dataquest.io/blog/tutorial-colors-image-clustering-python/
+https://adamspannbauer.github.io/2018/03/02/app-icon-dominant-colors/
+https://stackoverflow.com/questions/38876429/how-to-convert-from-rgb-values-to-color-temperature
+https://www.pyimagesearch.com/2014/09/15/python-compare-two-images/
+https://scikit-image.org/docs/dev/auto_examples/transform/plot_ssim.html 
+https://towardsdatascience.com/image-pre-processing-c1aec0be3edf 
