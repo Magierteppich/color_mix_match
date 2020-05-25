@@ -12,9 +12,15 @@ from skimage.metrics import structural_similarity as ssim
 
 
 
-# defining the target image 
+# defining the target image
 
 def find_target_image(valid_path, target_image):
+
+'''
+Identify the position of the target image within target_image. 
+As the target image is "manualy" added thru the function "demo_combine_target_database", the target_index suppose to be 0, always. 
+'''
+
     target_index = None
 
     for path in valid_path: 
@@ -32,6 +38,10 @@ def find_target_image(valid_path, target_image):
 
 
 def get_img_mse(img_ready_gray, target_index):
+
+'''
+Calculate the MSE between the target image and all other images in the dataset. 
+'''
     
     target_img_g = img_ready_gray[target_index]
     list_img_mse = []
@@ -48,6 +58,10 @@ def get_img_mse(img_ready_gray, target_index):
 
 
 def get_img_ssim(img_ready_gray, target_index):
+
+'''
+Calculate the SSIM between the target image and all other images in the dataset. 
+'''
     
     target_img_g = img_ready_gray[target_index]
     list_img_ssim = []
@@ -62,6 +76,11 @@ def get_img_ssim(img_ready_gray, target_index):
 # add the features to the features_list
 
 def get_feature_list_knn(valid_path, features, feature_list, list_img_mse,list_img_ssim):
+
+'''
+Extend the feature_list with MSE and SSIM results. 
+'''
+
     feature_list_knn = []
     features_knn = features + ["MSE"] + ["SSIM"]
     for i in range(len(valid_path)):
@@ -74,6 +93,10 @@ def get_feature_list_knn(valid_path, features, feature_list, list_img_mse,list_i
 # scaling the features
 
 def scale_feature(feature_list_knn):
+
+'''
+Scale all features. 
+'''
     
     scaler = StandardScaler()
     scaled_fit = scaler.fit(feature_list_knn)
@@ -87,6 +110,10 @@ def scale_feature(feature_list_knn):
 # find the x neighbors matching to target image
 
 def find_neighbors(valid_path, features_knn, scaled_feature_list_knn, number_of_neighbors, target_index):
+
+'''
+Apply KNN to find the neighbors. The first result in the list_of_neigbors is the target image itself. 
+'''
     
     model_knn = NearestNeighbors(metric= "cosine",
                                  algorithm = "brute",

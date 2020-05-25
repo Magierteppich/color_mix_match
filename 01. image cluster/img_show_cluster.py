@@ -15,17 +15,24 @@ from img_cluster import *
 
 # plotting the results 
 
-def img_resize_plot(img, height = 220, width = 220): # it takes a image (as array) and resize it. 
+def img_resize_plot(img, height = 220, width = 220):
+
+    '''
+    The function takes an image and resize it. 
+    '''
     
-    dim = (width, height)
-    list_resize = []
-    
+    dim = (width, height)    
     img_res = cv2.resize(img, dim, interpolation = cv2.INTER_LINEAR)
     
     return img_res
 
 def show_result_in_plot(result_dict):
     
+    '''
+    The function leverages the montage function (https://www.pyimagesearch.com/2017/05/29/montages-with-opencv/) to plot resulting clusters.
+    All images belonging to 1 cluster will be plotted into 1 montage. 
+    '''
+
     for keys in result_dict.keys():
         result_images_path = result_dict.get(keys)
         print("-----------------------------------------------")
@@ -47,6 +54,11 @@ def show_result_in_plot(result_dict):
             plt.show() 
 
 def print_results(result_dict):
+
+    '''
+    The function prints the list of images belonging to each cluster. 
+    '''
+
     for keys in result_dict.keys():
         result_img_path = result_dict.get(keys)
         print("-----------------------------------------------")

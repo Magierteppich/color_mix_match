@@ -5,13 +5,19 @@ import cv2
 from sklearn.cluster import KMeans
 from collections import Counter
 import colour
-from demo_img_preprocess import *
+from img_preprocess import *
 
 # Here, only feature extraction functions are stored. 
 # img_read is a list of images (as np.array) - from img_preprocess import * needed 
 
  
 def img_hsv(image_ready):
+
+    '''
+    The function takes in a list of images.
+    For each image, it returns a list containing the average h, s, and v value. 
+    The function returns a list of sub-lists. Each sub-list represents an image and consists of 3 values (avg_h, avg_s, avg_v)
+    '''
     
     img_hsv = []
     
@@ -36,13 +42,17 @@ def img_hsv(image_ready):
         hsv_temp = [average_h, average_s, average_v]
         img_hsv.append(hsv_temp)
             
-    
-    print("Hue, saturation and brightness have been determined for the target image.")
     return img_hsv
 
 
 
 def img_colorfulness(image_ready):
+
+    '''
+    The function takes in a list of images.
+    For each image, it returns a list containing the c-metric.
+    The function returns a list of sub-lists. Each sub-list represents an image and consists of 1 value, the c-metric. 
+    '''
     
     img_colorfulness = []
     
@@ -63,12 +73,16 @@ def img_colorfulness(image_ready):
         temp_result = list([c_metric])
         img_colorfulness.append(temp_result)
     
-    print("-----------------------------------------------------------------------------\n")
-    print("The colorfulness index has been calculated.")
-    return img_colorfulness #result is a list of sub-lists. Each sub-list contains 2 elements: file_path, colorfulness (the higher the number, the more colorful)
+    return img_colorfulness 
 
 
 def img_contrast(image_ready):
+
+    '''
+    The function takes in a list of images.
+    For each image, it returns a list containing the contrast.
+    The function returns a list of sub-lists. Each sub-list represents an image and consists of 1 value, the contrast. 
+    '''
     
     img_contrast = []
     
@@ -79,14 +93,19 @@ def img_contrast(image_ready):
             
         temp_result = list([contrast])
         img_contrast.append(temp_result)
-
-    print("-----------------------------------------------------------------------------\n")
-    print("The contrast has been calculated.")
-    return img_contrast #result is a list of sub-lists. Each sub-list contains 2 elements: file_path, contrast (the higher the number, the higher the contrast
+    
+    return img_contrast 
 
 
 def img_dominant_color(image_ready, k=4):
-    
+
+    '''
+    The function takes in a list of images.
+    For each image, it applies the KMeans method to identify the cetroids. Number of cetroids can be defined by k.
+    And the center of the centroid with the most dots belonging to it, is the dominant color. 
+    The function returns a list of sub-lists. Each sub-list represents an image and consists of 3 values, R,G,B value of the dominant color. 
+    '''
+
     img_dominant_color = []
     
     for img in image_ready: 
@@ -106,13 +125,15 @@ def img_dominant_color(image_ready, k=4):
         temp_result = list(dominant_color)
         img_dominant_color.append(temp_result)
             
-    print("-----------------------------------------------------------------------------\n")
-    print("The dominant color has been determined.")
-    return img_dominant_color #result is a list of sub-lists. Each sub-list contains 4 elements: file_path, r,g,b
+    return img_dominant_color 
 
 
 def average_RGB(image_ready):
     
+    '''
+    Takes a list of images and calculate the average RGB for each image.
+    '''
+
     average_RGB = []
     for img in image_ready: 
         (B, G, R) = cv2.split(img.astype("float"))    
@@ -122,6 +143,11 @@ def average_RGB(image_ready):
     return average_RGB
 
 def convert_RGB_to_kelvin (average_RGB):
+
+    '''
+    Takes the list of average_RGBs and convert each RGB to a kelvin value using the hernandez1999 method. 
+    The function returns a list of sub-lists. Each sublist contains 1 kelvin value. 
+    '''
     
     img_kelvin = []
     
@@ -140,9 +166,8 @@ def convert_RGB_to_kelvin (average_RGB):
         CCT = [colour.xy_to_CCT(xy, 'hernandez1999')]
         
         img_kelvin.append(CCT)
-    print("-----------------------------------------------------------------------------\n")
-    print("The image temperature has been determined.")
-    return img_kelvin   #img_kelvin is a list of calculated Kelvin value (based on average RGB and hernandez1999 method) for each image in img_ready
+    
+    return img_kelvin   
 
 # ------------------------------------------------------------------------------------------------------------------------------------------------------------ #
 
@@ -150,9 +175,12 @@ def convert_RGB_to_kelvin (average_RGB):
 
 def img_get_feature(image_ready, valid_path, height = 220, width = 220, k=4): # returns a list of dictionary containing ALL image features.
     
-    # file_list = get_file_path(path_to_library)
-    # preprocessed_img = img_ready(path_to_library, height=220, width=200)
-    # img_list, valid_path = img_read(file_list)
+    '''
+    The function combines all feature generating steps described above.
+    It takes the list of images and their valid pathes and return the feature_list. 
+    The feature_list is a list of sublists. Each sublist contains values corresponding to the features as described in "features".
+    Features is just a list of features. 
+    '''
     
     list_hsv = img_hsv(image_ready)
     list_colorfulness = img_colorfulness(image_ready)
@@ -167,7 +195,5 @@ def img_get_feature(image_ready, valid_path, height = 220, width = 220, k=4): # 
         temp = list_hsv[i] + list_colorfulness[i] + list_contrast[i] + list_dominant_color[i] + list_kelvin[i]
         feature_list.append(temp)
 
-    print("-----------------------------------------------------------------------------\n")
-    print("All charateristics have been calculated and stored.")
-    print("-----------------------------------------------------------------------------\n")
+
     return features, feature_list 

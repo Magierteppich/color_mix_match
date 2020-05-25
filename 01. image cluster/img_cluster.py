@@ -19,6 +19,10 @@ from img_feature import *
 # Scaling the features: 
 
 def scale_feature(feature_list):
+
+    '''
+    The function applies the standard scaler to the features. 
+    '''
     
     scaler = StandardScaler()
     scaled_fit = scaler.fit(feature_list)
@@ -28,6 +32,11 @@ def scale_feature(feature_list):
 
 
 def KMean_cluster(valid_path, scaled_feature_list, feature_list, n_init = 25, number_of_clusters = 5): 
+
+    '''
+    Apply KMean to cluster pre-processed images, based on the scaled features per image. 
+    The number of clusters can be defined. 
+    '''
     
     # KMeans model 
     model = KMeans(n_clusters = number_of_clusters, n_init = n_init, init = "random")

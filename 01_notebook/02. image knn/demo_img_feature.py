@@ -1,23 +1,18 @@
 
 import numpy as np
-import os
 import math
-from os.path import isfile, join
-from os import listdir
 import cv2
-import image_preprocessing as ip
 from sklearn.cluster import KMeans
 from collections import Counter
-
-# Here, only the single feature extraction functions are stored. 
-# img_read is a list of images (as np.array)
+import colour
+from demo_img_preprocess import *
 
  
-def img_hsv(img_ready):
+def img_hsv(image_ready):
     
     img_hsv = []
     
-    for img in img_ready:
+    for img in image_ready:
         
         hsv = cv2.cvtColor(img, cv2.COLOR_BGR2HSV)
         h = []
@@ -38,15 +33,17 @@ def img_hsv(img_ready):
         hsv_temp = [average_h, average_s, average_v]
         img_hsv.append(hsv_temp)
             
+    
+    print("Hue, saturation and brightness have been determined for the target image.")
     return img_hsv
 
 
 
-def img_colorfulness(img_ready):
+def img_colorfulness(image_ready):
     
     img_colorfulness = []
     
-    for img in img_ready: 
+    for img in image_ready: 
         
         (B, G, R) = cv2.split(img.astype("float"))
 
@@ -63,29 +60,33 @@ def img_colorfulness(img_ready):
         temp_result = list([c_metric])
         img_colorfulness.append(temp_result)
     
+    print("-----------------------------------------------------------------------------\n")
+    print("The colorfulness index has been calculated.")
     return img_colorfulness #result is a list of sub-lists. Each sub-list contains 2 elements: file_path, colorfulness (the higher the number, the more colorful)
 
 
-def img_contrast(img_ready):
+def img_contrast(image_ready):
     
     img_contrast = []
     
-    for img in img_ready: 
+    for img in image_ready: 
     
-        img = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
+        img = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)/255
         contrast = img.std()
             
         temp_result = list([contrast])
         img_contrast.append(temp_result)
-    
+
+    print("-----------------------------------------------------------------------------\n")
+    print("The contrast has been calculated.")
     return img_contrast #result is a list of sub-lists. Each sub-list contains 2 elements: file_path, contrast (the higher the number, the higher the contrast
 
 
-def img_dominant_color(img_ready, k=4):
+def img_dominant_color(image_ready, k=4):
     
     img_dominant_color = []
     
-    for img in img_ready: 
+    for img in image_ready: 
     
         img = cv2.cvtColor(img, cv2.COLOR_BGR2RGB) #convert to RGB to get the right order
         img = img.reshape((img.shape[0] * img.shape[1], 3))
@@ -102,13 +103,15 @@ def img_dominant_color(img_ready, k=4):
         temp_result = list(dominant_color)
         img_dominant_color.append(temp_result)
             
+    print("-----------------------------------------------------------------------------\n")
+    print("The dominant color has been determined.")
     return img_dominant_color #result is a list of sub-lists. Each sub-list contains 4 elements: file_path, r,g,b
 
 
-def average_RGB(img_ready):
+def average_RGB(image_ready):
     
     average_RGB = []
-    for img in img_ready: 
+    for img in image_ready: 
         (B, G, R) = cv2.split(img.astype("float"))    
         temp = [np.average(R), np.average(G), np.average(B)]
         average_RGB.append(temp)
@@ -131,9 +134,37 @@ def convert_RGB_to_kelvin (average_RGB):
         xy = colour.XYZ_to_xy(XYZ)
 
         # Conversion to correlated colour temperature in K.
-        CCT = colour.xy_to_CCT(xy, 'hernandez1999')
+        CCT = [colour.xy_to_CCT(xy, 'hernandez1999')]
         
         img_kelvin.append(CCT)
-    
+    print("-----------------------------------------------------------------------------\n")
+    print("The image temperature has been determined.")
     return img_kelvin   #img_kelvin is a list of calculated Kelvin value (based on average RGB and hernandez1999 method) for each image in img_ready
 
+# ------------------------------------------------------------------------------------------------------------------------------------------------------------ #
+
+# putting all features into 1 feature list. 
+
+def img_get_feature(image_ready, valid_path, height = 220, width = 220, k=4): # returns a list of dictionary containing ALL image features.
+    
+    # file_list = get_file_path(path_to_library)
+    # preprocessed_img = img_ready(path_to_library, height=220, width=200)
+    # img_list, valid_path = img_read(file_list)
+    
+    list_hsv = img_hsv(image_ready)
+    list_colorfulness = img_colorfulness(image_ready)
+    list_contrast = img_contrast(image_ready)
+    list_dominant_color = img_dominant_color(image_ready, k=k)
+    list_average_RGB = average_RGB(image_ready)
+    list_kelvin = convert_RGB_to_kelvin(list_average_RGB)
+
+    feature_list = []
+    features = ["H", "S", "V", "colorfulness", "contrast", "R", "G", "B", "kelvin"]
+    for i in range(len(valid_path)):
+        temp = list_hsv[i] + list_colorfulness[i] + list_contrast[i] + list_dominant_color[i] + list_kelvin[i]
+        feature_list.append(temp)
+
+    print("-----------------------------------------------------------------------------\n")
+    print("All charateristics have been calculated and stored.")
+    print("-----------------------------------------------------------------------------\n")
+    return features, feature_list 

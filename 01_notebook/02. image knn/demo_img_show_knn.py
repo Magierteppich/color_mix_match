@@ -17,7 +17,11 @@ from demo_img_knn import *
 # show results
 
 def img_resize_plot(img, height = 220, width = 220): # it takes a image (as array) and resize it. 
-    
+
+'''
+Resize the images to show. It takes an image and return a resized image. 
+'''
+
     dim = (width, height)
     list_resize = []
     
@@ -26,6 +30,10 @@ def img_resize_plot(img, height = 220, width = 220): # it takes a image (as arra
     return img_res
 
 def show_result_in_plot_knn(list_of_neighbors):
+
+'''
+Plot all images recommended into a montage. 
+'''
 
         images_plot = []
         
@@ -43,6 +51,11 @@ def show_result_in_plot_knn(list_of_neighbors):
             plt.show() 
 
 def print_results(list_of_neighbors, target_index, number_of_neighbors, all_in_valid_path):
+
+'''
+Print the paths of all reommended iamges.
+'''
+
         target = all_in_valid_path[target_index]
         print(f"...the following {number_of_neighbors} images may fit well:")
         print("-----------------------------------------------------")
@@ -50,8 +63,13 @@ def print_results(list_of_neighbors, target_index, number_of_neighbors, all_in_v
         for path in list_of_neighbors_print:
             print(f"{path[0]}")
         print("-----------------------------------------------------\n")
+    
 
 def show_target_image(list_of_neighbors):
+
+'''
+Plot the target image. 
+'''
 
     print(f"For the image chosen {list_of_neighbors[0][0]}:")
     print("\n")
