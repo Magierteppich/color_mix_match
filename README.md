@@ -69,7 +69,7 @@ A folder with all images to select from and a separate folder with 1 target imag
 
 ### example results: 
 
-
+**cluster**
 
 ### final presentation
 https://docs.google.com/presentation/d/17q32e9GGdifiA6ztwDIRSkFN-02ZPsv_WfFzQ1xaHJA/edit?usp=sharing
