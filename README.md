@@ -92,3 +92,4 @@ https://docs.google.com/presentation/d/17q32e9GGdifiA6ztwDIRSkFN-02ZPsv_WfFzQ1xa
 - https://www.pyimagesearch.com/2014/09/15/python-compare-two-images/
 - https://scikit-image.org/docs/dev/auto_examples/transform/plot_ssim.html 
 - https://towardsdatascience.com/image-pre-processing-c1aec0be3edf 
+- Images downloaded from: www.unsplash.com 
