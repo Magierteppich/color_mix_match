@@ -69,10 +69,16 @@ A folder with all images to select from and a separate folder with 1 target imag
 
 ### example results: 
 
-**cluster**
+**cluster results**
 
-![clustering results]
-(https://github.com/Magierteppich/color_mix_match/blob/master/00_data/03_screenshots%20for%20README/Bildschirmfoto%202020-05-25%20um%2018.48.11.png) 
+<img width="478" alt="Bildschirmfoto 2020-05-25 um 18 48 58" src="https://user-images.githubusercontent.com/61271744/82831822-c20d2080-9eb9-11ea-9140-f8c188cf2df6.png">
+
+**target image results**
+
+<img width="599" alt="Bildschirmfoto 2020-05-25 um 18 48 11" src="https://user-images.githubusercontent.com/61271744/82831906-f8e33680-9eb9-11ea-9ad4-3c2133dfb126.png">
+
+<img width="702" alt="Bildschirmfoto 2020-05-25 um 18 48 24" src="https://user-images.githubusercontent.com/61271744/82831911-fbde2700-9eb9-11ea-8abe-252eb1fe2d26.png">
+
 
 ### final presentation
 https://docs.google.com/presentation/d/17q32e9GGdifiA6ztwDIRSkFN-02ZPsv_WfFzQ1xaHJA/edit?usp=sharing
