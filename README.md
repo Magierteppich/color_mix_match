@@ -4,7 +4,7 @@ Ironhack Data Anyltics Bootcamp - final project
 
 ### Goal: 
 
-Sort images based on images features, e.g. dominant color, contrast, structural similarity, colorfulness etc. 
+Sort images based on image features, e.g. dominant color, contrast, structural similarity, colorfulness etc. 
 
 ### Approach:
 
@@ -41,12 +41,12 @@ dominant color only"
 
 ### 01. Image cluster
 
-1. image_preprocess: img_preprocess.py
-2. image_feature: img_feature.py
-3. image_cluster: img_cluster.py
-4. img_show_cluster: img_show_cluser.py
-5. final module: mix_n_match_cluster.py
-6. image_cluster_demo --> workbook to run the final module 
+- image_preprocess: img_preprocess.py
+- image_feature: img_feature.py
+- image_cluster: img_cluster.py
+- img_show_cluster: img_show_cluser.py
+- final module: mix_n_match_cluster.py
+- image_cluster_demo --> workbook to run the final module 
 
 
 ### 02.Image knn
@@ -54,24 +54,28 @@ dominant color only"
 To use the module, inputs needed are:
 A folder with all images to select from and a separate folder with 1 target image. 
 
-1. To generate the *image database* to make recommendations from, run thru the first 2 steps of image cluster.
-2. **Save** the key variables *resulting features* from the first 2 steps into a **pickle file**: 02. image knn/store_demo.py
-3. **Load** the pickle file: 02. image knn/load_demo.py
-4. **target image preprocess**: 02. image knn/demo_img_preprocess.py 
+- To generate the *image database* to make recommendations from, run thru the first 2 steps of image cluster.
+- **Save** the key variables *resulting features* from the first 2 steps into a **pickle file**: store_demo.py
+- **Load** the pickle file: load_demo.py
+- **target image preprocess**: demo_img_preprocess.py 
 
     _It's the same "img_preprocess.py" as in the image cluster folder to pre-process the target image first. Only difference is the printing of results for demo._
 
-5. **target image feature detection**: 02. image knn/demo_img_feature.py 
+- **target image feature detection**: demo_img_feature.py 
 
     _It's the same "img_preprocess.py" as in the image cluster folder to extract the features of the target image._
 
-6. **Integrate** the target image results into the loaded database for further process: 02. image knn/demo_combine_target_database.py
-7. **Run KNN** on the result of 6: 02. image knn/demo_img_knn.py
-8. **Show the results**: 01_notebook/02. image knn/demo_img_show_knn.py
-9. final modlue:02. image knn/demo_mix_n_match_knn.py
-10. Mix_n_Match demo --> workbook used to run the final module
-11. presentation_pickle_demo_knn --> workbook used to store the image features into a pickle file
-12. Build_demo --> 
+- **Integrate** the target image results into the loaded database for further process: demo_combine_target_database.py
+- **Run KNN** on the result of 6: demo_img_knn.py
+- **Show the results**: demo_img_show_knn.py
+- final modlue: demo_mix_n_match_knn.py
+- workbook used to run the final module: Mix_n_Match demo
+- workbook used to store the image features into a pickle file: presentation_pickle_demo_knn
+
+
+### example results: 
+
+
 
 ### final presentation
 https://docs.google.com/presentation/d/17q32e9GGdifiA6ztwDIRSkFN-02ZPsv_WfFzQ1xaHJA/edit?usp=sharing
