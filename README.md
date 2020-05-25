@@ -4,7 +4,7 @@ Ironhack Data Anyltics Bootcamp - final project
 
 ### Goal: 
 
-Sort images based on image features, e.g. dominant color, contrast, structural similarity, colorfulness etc. 
+Build an application to sort images based on image features, e.g. dominant color, contrast, structural similarity, colorfulness etc. 
 
 ### Approach:
 
