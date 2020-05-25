@@ -39,7 +39,7 @@ Build an application to sort images based on image features, e.g. dominant color
 05. dominant color only - module used to return 3 dominant colors per image. 
 dominant color only"
 
-### 01. Image cluster
+#### 01. Image cluster
 
 - image_preprocess: img_preprocess.py
 - image_feature: img_feature.py
@@ -49,7 +49,7 @@ dominant color only"
 - image_cluster_demo --> workbook to run the final module 
 
 
-### 02.Image knn
+#### 02.Image knn
 
 To use the module, inputs needed are:
 A folder with all images to select from and a separate folder with 1 target image. 
