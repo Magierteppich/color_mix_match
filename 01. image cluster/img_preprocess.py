@@ -11,9 +11,9 @@ def get_file_path(path_to_library):
     and return a list containing all file pathes.
     '''
 	    
-	file_list = [path_to_library + "/" + f for f in listdir(path_to_library) if isfile(join(path_to_library, f))] 
+    file_list = [path_to_library + "/" + f for f in listdir(path_to_library) if isfile(join(path_to_library, f))] 
 	    
-	return file_list #simple list with file pathes of all files in the directory ["path1", "path2"...]
+    return file_list #simple list with file pathes of all files in the directory ["path1", "path2"...]
 
 def img_read(file_list):
 
@@ -84,13 +84,13 @@ def img_ready(path_to_library, height = 220, width = 220):
     Output: preprocessed images stored in image_ready (list of arrays) and the valid_path. 
     '''
 
-	file_list = get_file_path(path_to_library)
-	img_list, valid_path = img_read(file_list)
-	list_resize = img_resize(img_list, height = height, width = width)
-	list_denoise = img_denoise(list_resize) 
-	image_ready = list_denoise.copy()
+    file_list = get_file_path(path_to_library)
+    img_list, valid_path = img_read(file_list)
+    list_resize = img_resize(img_list, height = height, width = width)
+    list_denoise = img_denoise(list_resize) 
+    image_ready = list_denoise.copy()
 
-	return image_ready, valid_path #list of images. Each image is a 3d np.array
+    return image_ready, valid_path #list of images. Each image is a 3d np.array
 
 
 def color_to_gray(image_ready):

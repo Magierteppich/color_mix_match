@@ -16,10 +16,10 @@ from skimage.metrics import structural_similarity as ssim
 
 def find_target_image(valid_path, target_image):
 
-'''
-Identify the position of the target image within target_image. 
-As the target image is "manualy" added thru the function "demo_combine_target_database", the target_index suppose to be 0, always. 
-'''
+    '''
+    Identify the position of the target image within target_image. 
+    As the target image is "manualy" added thru the function "demo_combine_target_database", the target_index suppose to be 0, always. 
+    '''
 
     target_index = None
 
@@ -39,9 +39,9 @@ As the target image is "manualy" added thru the function "demo_combine_target_da
 
 def get_img_mse(img_ready_gray, target_index):
 
-'''
-Calculate the MSE between the target image and all other images in the dataset. 
-'''
+    '''
+    Calculate the MSE between the target image and all other images in the dataset. 
+    '''
     
     target_img_g = img_ready_gray[target_index]
     list_img_mse = []
@@ -59,9 +59,9 @@ Calculate the MSE between the target image and all other images in the dataset.
 
 def get_img_ssim(img_ready_gray, target_index):
 
-'''
-Calculate the SSIM between the target image and all other images in the dataset. 
-'''
+    '''
+    Calculate the SSIM between the target image and all other images in the dataset. 
+    '''
     
     target_img_g = img_ready_gray[target_index]
     list_img_ssim = []
@@ -77,9 +77,9 @@ Calculate the SSIM between the target image and all other images in the dataset.
 
 def get_feature_list_knn(valid_path, features, feature_list, list_img_mse,list_img_ssim):
 
-'''
-Extend the feature_list with MSE and SSIM results. 
-'''
+    '''
+    Extend the feature_list with MSE and SSIM results. 
+    '''
 
     feature_list_knn = []
     features_knn = features + ["MSE"] + ["SSIM"]
@@ -94,9 +94,9 @@ Extend the feature_list with MSE and SSIM results.
 
 def scale_feature(feature_list_knn):
 
-'''
-Scale all features. 
-'''
+    '''
+    Scale all features. 
+    '''
     
     scaler = StandardScaler()
     scaled_fit = scaler.fit(feature_list_knn)
@@ -111,9 +111,9 @@ Scale all features.
 
 def find_neighbors(valid_path, features_knn, scaled_feature_list_knn, number_of_neighbors, target_index):
 
-'''
-Apply KNN to find the neighbors. The first result in the list_of_neigbors is the target image itself. 
-'''
+    '''
+    Apply KNN to find the neighbors. The first result in the list_of_neigbors is the target image itself. 
+    '''
     
     model_knn = NearestNeighbors(metric= "cosine",
                                  algorithm = "brute",

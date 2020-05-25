@@ -17,11 +17,11 @@ Image.MAX_IMAGE_PIXELS = None
 
 def demo_mix_n_match(file_path, target_image_name, pickle_file_name, number_of_neighbors):
 
-'''
-It combines all steps described to return a list of reommended images from the pre-loaded image databse.
-Based on the target file, with the name "target_image_name", in the directory "file_path".
-In case the target_image cannot be read or load, the function returns an error. 
-'''
+    '''
+    It combines all steps described to return a list of reommended images from the pre-loaded image databse.
+    Based on the target file, with the name "target_image_name", in the directory "file_path".
+    In case the target_image cannot be read or load, the function returns an error. 
+    '''
 
     ascii_banner = pyfiglet.figlet_format("Welcome to color mix and match!")
     print(ascii_banner)
