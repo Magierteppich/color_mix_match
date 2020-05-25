@@ -85,10 +85,10 @@ https://docs.google.com/presentation/d/17q32e9GGdifiA6ztwDIRSkFN-02ZPsv_WfFzQ1xa
 
 
 ### sources used:
-https://www.pyimagesearch.com/2017/06/05/computing-image-colorfulness-with-opencv-and-python/
-https://www.dataquest.io/blog/tutorial-colors-image-clustering-python/
-https://adamspannbauer.github.io/2018/03/02/app-icon-dominant-colors/
-https://stackoverflow.com/questions/38876429/how-to-convert-from-rgb-values-to-color-temperature
-https://www.pyimagesearch.com/2014/09/15/python-compare-two-images/
-https://scikit-image.org/docs/dev/auto_examples/transform/plot_ssim.html 
-https://towardsdatascience.com/image-pre-processing-c1aec0be3edf 
+- https://www.pyimagesearch.com/2017/06/05/computing-image-colorfulness-with-opencv-and-python/
+- https://www.dataquest.io/blog/tutorial-colors-image-clustering-python/
+- https://adamspannbauer.github.io/2018/03/02/app-icon-dominant-colors/
+- https://stackoverflow.com/questions/38876429/how-to-convert-from-rgb-values-to-color-temperature
+- https://www.pyimagesearch.com/2014/09/15/python-compare-two-images/
+- https://scikit-image.org/docs/dev/auto_examples/transform/plot_ssim.html 
+- https://towardsdatascience.com/image-pre-processing-c1aec0be3edf 
