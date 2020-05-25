@@ -71,6 +71,9 @@ A folder with all images to select from and a separate folder with 1 target imag
 
 **cluster**
 
+![clustering results]
+(https://github.com/Magierteppich/color_mix_match/blob/master/00_data/03_screenshots%20for%20README/Bildschirmfoto%202020-05-25%20um%2018.48.11.png) 
+
 ### final presentation
 https://docs.google.com/presentation/d/17q32e9GGdifiA6ztwDIRSkFN-02ZPsv_WfFzQ1xaHJA/edit?usp=sharing
 
