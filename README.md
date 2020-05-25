@@ -57,14 +57,8 @@ A folder with all images to select from and a separate folder with 1 target imag
 - To generate the *image database* to make recommendations from, run thru the first 2 steps of image cluster.
 - **Save** the key variables *resulting features* from the first 2 steps into a **pickle file**: store_demo.py
 - **Load** the pickle file: load_demo.py
-- **target image preprocess**: demo_img_preprocess.py 
-
-    _It's the same "img_preprocess.py" as in the image cluster folder to pre-process the target image first. Only difference is the printing of results for demo._
-
-- **target image feature detection**: demo_img_feature.py 
-
-    _It's the same "img_preprocess.py" as in the image cluster folder to extract the features of the target image._
-
+- **target image preprocess**: demo_img_preprocess.py /_It's the same "img_preprocess.py" as in the image cluster folder to pre-process the target image first. Only difference is the printing of results for demo._
+- **target image feature detection**: demo_img_feature.py / _It's the same "img_preprocess.py" as in the image cluster folder to extract the features of the target image._
 - **Integrate** the target image results into the loaded database for further process: demo_combine_target_database.py
 - **Run KNN** on the result of 6: demo_img_knn.py
 - **Show the results**: demo_img_show_knn.py
